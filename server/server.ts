@@ -5,9 +5,12 @@ import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import cors from 'cors';
 import connectDB from './config/db.js';
+import authRoutes from './routes/user.route.js'
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 
+const port = process.env.PORT || 3000;
 
 app.use(
   cors({
@@ -20,7 +23,6 @@ app.use(
 
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
-
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -39,6 +41,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("combined"));
 }
 
+app.use("/api/auth", authRoutes)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
@@ -63,7 +66,7 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-const port = process.env.PORT || 3000;
+app.use(errorHandler);
 
 const startServer = async () => {
   try {

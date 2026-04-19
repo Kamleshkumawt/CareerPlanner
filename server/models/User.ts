@@ -1,15 +1,24 @@
-import{ Document, model, Schema } from "mongoose";
+import{ Document, Model, model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
-export interface IUser extends Document {
+export interface IUser {
   username: string;
   email: string;
   password: string;
 }
 
-const userSchema = new Schema<IUser>({
+export interface IUserDocument extends IUser, Document {
+  isValidPassword(password: string): Promise<boolean>;
+  generateJWT(): string;
+}
+
+export interface IUserModel extends Model<IUserDocument> {
+  hashPassword(password: string): Promise<string>;
+}
+
+const userSchema = new Schema<IUserDocument, IUserModel>({
     username:{
         type: String,
         required: true,
@@ -34,19 +43,16 @@ const userSchema = new Schema<IUser>({
     timestamps: true,
 })
 
-
-userSchema.index({ email: 1 });
-
 userSchema.statics.hashPassword = async function(password: string) {
     const salt = await bcrypt.genSalt(12);
     return await bcrypt.hash(password, salt);
 }
 
-userSchema.methods.isValidPassword = async function(this: IUser, password: string) {
+userSchema.methods.isValidPassword = async function(password: string) {
     return await bcrypt.compare(password, this.password);
 }
 
-userSchema.methods.generateJWT = function(this: IUser) {
+userSchema.methods.generateJWT = function() {
     return jwt.sign(
         { _id: this._id, email: this.email },
         process.env.JWT_SECRET as string,
@@ -54,6 +60,6 @@ userSchema.methods.generateJWT = function(this: IUser) {
     );
 }
 
-const User = model<IUser>("User", userSchema);
+const User = model<IUserDocument, IUserModel>("User", userSchema);
 
 export default User;
