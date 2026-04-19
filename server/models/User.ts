@@ -27,6 +27,8 @@ const userSchema = new Schema<IUser>({
         type: String,
         select: false,
         required: true,
+        trim: true,
+        minLength: [6, "Password must be at least 6 characters long"],
     }
 },{
     timestamps: true,
@@ -36,7 +38,7 @@ const userSchema = new Schema<IUser>({
 userSchema.index({ email: 1 });
 
 userSchema.statics.hashPassword = async function(password: string) {
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     return await bcrypt.hash(password, salt);
 }
 
