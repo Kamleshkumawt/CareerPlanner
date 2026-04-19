@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import cors from 'cors';
+import connectDB from './config/db.js';
 
 const app = express();
 
@@ -67,7 +68,7 @@ const port = process.env.PORT || 3000;
 const startServer = async () => {
   try {
     const server = http.createServer(app);
-
+    await connectDB();
     server.listen(port, () => {
       console.log("Server started successfully", {
         port: port,
