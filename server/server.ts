@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import authRoutes from './routes/user.route.js'
+import planRoutes from './routes/plan.route.js'
 import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
@@ -42,7 +43,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/auth", authRoutes)
-
+app.use("/api/plans", planRoutes)
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });

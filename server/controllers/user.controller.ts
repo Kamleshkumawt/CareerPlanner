@@ -64,57 +64,59 @@ export const registerController = async (req: Request, res: Response) => {
 export const loginController = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Email and Password are required",
+        message: "Email and password are required",
       });
     }
+
+    const trimmedEmail = email.trim().toLowerCase();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(trimmedEmail)) {
       return res.status(400).json({
         success: false,
-        message: "Please provide a valid email",
+        message: "Please provide a valid email address",
       });
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email: trimmedEmail }).select("+password");
     if (!user) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
-        message: "Invalid email or password.",
+        message: "Invalid email or password",
       });
     }
 
-    const isMatch = await user.isValidPassword(password);
-
-    if (!isMatch) {
-      return res.status(400).json({
+    const isPasswordValid = await user.isValidPassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
         success: false,
-        message: "Invalid email or password.",
+        message: "Invalid email or password",
       });
     }
 
     const token = await user.generateJWT();
 
     const userObj = user.toObject();
-    const { password: userPassword, ...userWithoutPassword } = userObj;
+    delete (userObj as Partial<typeof userObj>).password;
+
 
     res.status(200).json({
       success: true,
+      message: "Login successful",
       data: {
-        user: userWithoutPassword,
+        user: userObj,
         token,
       },
-      message: "Login successful",
     });
   } catch (err: any) {
-    console.error(err);
+    console.error("Login error:", err);
     res.status(500).json({
       success: false,
-      message: "Login failed",
+      message: "Login failed. Please try again later",
       errors: err.message,
     });
   }

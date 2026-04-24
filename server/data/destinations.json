@@ -1,0 +1,114 @@
+{
+  "germany_senior_backend_engineer": {
+    "destination": "Germany",
+    "role": "Senior Backend Engineer",
+    "salary": {
+      "min": 60000,
+      "median": 80000,
+      "max": 110000,
+      "currency_code": "EUR",
+      "data_confidence": "estimated"
+    },
+    "work_authorisation_routes": [
+      {
+        "name": "EU Blue Card",
+        "type": "skilled_worker_visa",
+        "sponsorship_required": true,
+        "processing_time_months": { "min": 2, "max": 4 },
+        "eligibility_criteria": [
+          "Bachelor's degree or higher in relevant field",
+          "Job offer with salary >= €56,400/year",
+          "Degree recognition by German authorities"
+        ],
+        "minimum_salary_threshold": 56400,
+        "data_confidence": "verified"
+      },
+      {
+        "name": "Skilled Worker Visa",
+        "type": "work_visa",
+        "sponsorship_required": true,
+        "processing_time_months": { "min": 1, "max": 3 },
+        "eligibility_criteria": [
+          "Recognised professional qualification",
+          "Binding job offer from German employer",
+          "Basic German language (A1 may suffice)"
+        ],
+        "minimum_salary_threshold": 45000,
+        "data_confidence": "verified"
+      }
+    ],
+    "credentials": {
+      "required_qualifications": ["Bachelor's in Computer Science or related"],
+      "language_requirements": "German B1 preferred; many tech companies work in English",
+      "degree_equivalency_notes": "Indian degrees generally recognised; anabin database check recommended",
+      "data_confidence": "estimated"
+    },
+    "timeline": {
+      "typical_hiring_duration_months": 2,
+      "work_authorisation_months": { "min": 2, "max": 4 },
+      "total_estimated_time_to_start_months": { "min": 4, "max": 6 },
+      "data_confidence": "estimated"
+    },
+    "market_demand": {
+      "level": "high",
+      "scale_definition": "high = active hiring, many open roles; medium = moderate; low = few roles",
+      "data_confidence": "estimated"
+    }
+  },
+  "uk_product_manager": {
+    "destination": "United Kingdom",
+    "role": "Product Manager",
+    "salary": {
+      "min": 50000,
+      "median": 70000,
+      "max": 100000,
+      "currency_code": "GBP",
+      "data_confidence": "estimated"
+    },
+    "work_authorisation_routes": [
+      {
+        "name": "Skilled Worker Visa",
+        "type": "work_visa",
+        "sponsorship_required": true,
+        "processing_time_months": { "min": 1, "max": 3 },
+        "eligibility_criteria": [
+          "Job offer from UK licensed sponsor",
+          "Role on eligible occupation list",
+          "Salary meets minimum threshold",
+          "English language requirement (B1)"
+        ],
+        "minimum_salary_threshold": 38700,
+        "data_confidence": "verified"
+      },
+      {
+        "name": "High Potential Individual Visa",
+        "type": "independent_visa",
+        "sponsorship_required": false,
+        "processing_time_months": { "min": 1, "max": 2 },
+        "eligibility_criteria": [
+          "Degree from top global university (QS top 50)",
+          "Graduated within last 5 years"
+        ],
+        "minimum_salary_threshold": 0,
+        "data_confidence": "verified"
+      }
+    ],
+    "credentials": {
+      "required_qualifications": ["Bachelor's degree preferred", "MBA is a plus"],
+      "language_requirements": "English proficiency required (B1 minimum for visa)",
+      "degree_equivalency_notes": "Indian degrees widely accepted in UK tech industry",
+      "data_confidence": "verified"
+    },
+    "timeline": {
+      "typical_hiring_duration_months": 2,
+      "work_authorisation_months": { "min": 1, "max": 3 },
+      "total_estimated_time_to_start_months": { "min": 3, "max": 5 },
+      "data_confidence": "estimated"
+    },
+    "market_demand": {
+      "level": "high",
+      "scale_definition": "high = active hiring, many open roles; medium = moderate; low = few roles",
+      "data_confidence": "estimated"
+    }
+  }
+}
